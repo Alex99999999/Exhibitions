@@ -43,7 +43,6 @@ public class MySqlConnection implements ConnectionManager {
     Connection con;
     try {
       con = ds.getConnection();
-      LOG.info(Logs.CONNECTION_ESTABLISHED);
     } catch (SQLException ex) {
       errorMes = Logs.CONNECTION_ERROR;
       LOG.error(errorMes);

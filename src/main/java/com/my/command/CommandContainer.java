@@ -90,15 +90,6 @@ public class CommandContainer {
     commands.put("show_appoint_exhibition_for_hall", new ShowAppointExhibitionForHall());
     commands.put("appoint_exhibition_for_hall", new AppointExhibitionForHall());
 
-//    commands.put("exhibition_status", new GetExhibitionStatusListCommand());
-//    commands.put("get_currency_list", new GetCurrencyListCommand());
-//    commands.put("get_hall_status_list", new GetHallStatusListCommand());
-//    commands.put("get_hall_list", new GetHallListCommand());
-
-//    commands.put("sort_exhibitions", new SortExhibitionsCommand());
-//    bookings
-//    commands.put("get_booking_status_list", new GetBookingStatusListCommand());
-
     commands.put("get_booking_list", new GetBookingListCommand());
     commands.put("show_admin_bookings", new ShowAdminBookingsCommand());
     commands.put("filter_bookings", new FilterBookingsCommand());
@@ -141,5 +132,4 @@ public class CommandContainer {
     }
     return commands.get(command);
   }
-
 }

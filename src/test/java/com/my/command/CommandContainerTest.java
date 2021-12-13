@@ -9,7 +9,9 @@ import com.my.utils.constants.Logs;
 import com.my.utils.constants.Params;
 import com.my.web.command.exhibition.GetExhibitionByTopic;
 import com.my.web.command.exhibition.SortExhibitionByStringValue;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Assertions;
@@ -61,5 +63,11 @@ class CommandContainerTest {
     }
   }
 
+  @Test
+  void test () {
+    List<Integer> list = new ArrayList<>();
+    list.add(1);
+    System.out.println(list.size());
+  }
 
 }

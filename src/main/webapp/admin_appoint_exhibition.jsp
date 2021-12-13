@@ -120,7 +120,6 @@ ${infoMessage}
         <td class="text-center">${exhibition.endDate}</td>
         <td class="text-center">
             <input type="hidden" name="command" value="set_halls_for_exhibition">
-            <input type="hidden" name="exhibition_id" value=${exhibition.id}>
             <input type="hidden" name="free_hall_id" value=${hall.id}>
             <div class="d-grid gap-2 col-6 mx-auto">
               <button class="btn btn-secondary btn-md btn-block" type="submit"><fmt:message key="label.appoint"/></button>

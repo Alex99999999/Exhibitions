@@ -5,6 +5,7 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 
+DROP SCHEMA IF EXISTS `exhibitions` ;
 CREATE SCHEMA IF NOT EXISTS `exhibitions` DEFAULT CHARACTER SET utf8 ;
 USE `exhibitions` ;
 
@@ -99,6 +100,65 @@ CREATE TABLE IF NOT EXISTS `exhibitions`.`exhibition` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `exhibitions`.`hall_status`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `exhibitions`.`hall_status` ;
+
+CREATE TABLE IF NOT EXISTS `exhibitions`.`hall_status` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `status` VARCHAR(45) NOT NULL DEFAULT 'FREE',
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `exhibitions`.`hall`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `exhibitions`.`hall` ;
+
+CREATE TABLE IF NOT EXISTS `exhibitions`.`hall` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `floor` INT NULL,
+  `floor_space` DOUBLE UNSIGNED NULL,
+  `hall_no` INT UNSIGNED NULL,
+  `status_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `status_id`),
+  INDEX `fk_hall_hall_status1_idx` (`status_id` ASC) VISIBLE,
+  CONSTRAINT `fk_hall_hall_status1`
+    FOREIGN KEY (`status_id`)
+    REFERENCES `exhibitions`.`hall_status` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `exhibitions`.`exhibition_has_hall`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `exhibitions`.`exhibition_has_hall` ;
+
+CREATE TABLE IF NOT EXISTS `exhibitions`.`exhibition_has_hall` (
+  `exhibition_id` INT NOT NULL,
+  `hall_id` INT NOT NULL,
+  PRIMARY KEY (`exhibition_id`, `hall_id`),
+  INDEX `fk_exhibition_has_hall_hall1_idx` (`hall_id` ASC) VISIBLE,
+  INDEX `fk_exhibition_has_hall_exhibition1_idx` (`exhibition_id` ASC) VISIBLE,
+  UNIQUE INDEX `hall_id_UNIQUE` (`hall_id` ASC) VISIBLE,
+  CONSTRAINT `fk_exhibition_has_hall_exhibition1`
+    FOREIGN KEY (`exhibition_id`)
+    REFERENCES `exhibitions`.`exhibition` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_exhibition_has_hall_hall1`
+    FOREIGN KEY (`hall_id`)
+    REFERENCES `exhibitions`.`hall` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 -- -----------------------------------------------------
 -- Table `exhibitions`.`booking_status`
 -- -----------------------------------------------------
@@ -142,65 +202,6 @@ CREATE TABLE IF NOT EXISTS `exhibitions`.`booking` (
     REFERENCES `exhibitions`.`exhibition` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
-
-
--- -----------------------------------------------------
--- Table `exhibitions`.`hall_status`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `exhibitions`.`hall_status` ;
-
-CREATE TABLE IF NOT EXISTS `exhibitions`.`hall_status` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `status` VARCHAR(45) NOT NULL DEFAULT 'FREE',
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `exhibitions`.`hall`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `exhibitions`.`hall` ;
-
-CREATE TABLE IF NOT EXISTS `exhibitions`.`hall` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `floor` INT NULL,
-  `floor_space` DOUBLE UNSIGNED NULL,
-  `hall_no` INT UNSIGNED NULL,
-  `status_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `status_id`),
-  INDEX `fk_hall_hall_status1_idx` (`status_id` ASC) VISIBLE,
-  CONSTRAINT `fk_hall_hall_status1`
-    FOREIGN KEY (`status_id`)
-    REFERENCES `exhibitions`.`hall_status` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
-
-
--- -----------------------------------------------------
--- Table `exhibitions`.`exhibition_has_booking`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `exhibitions`.`exhibition_has_booking` ;
-
-CREATE TABLE IF NOT EXISTS `exhibitions`.`exhibition_has_booking` (
-  `exhibition_id` INT NOT NULL,
-  `booking_id` INT NOT NULL,
-  PRIMARY KEY (`exhibition_id`, `booking_id`),
-  INDEX `fk_exhibition_has_booking_booking1_idx` (`booking_id` ASC) VISIBLE,
-  INDEX `fk_exhibition_has_booking_exhibition1_idx` (`exhibition_id` ASC) VISIBLE,
-  CONSTRAINT `fk_exhibition_has_booking_exhibition1`
-    FOREIGN KEY (`exhibition_id`)
-    REFERENCES `exhibitions`.`exhibition` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_exhibition_has_booking_booking1`
-    FOREIGN KEY (`booking_id`)
-    REFERENCES `exhibitions`.`booking` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 

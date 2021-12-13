@@ -22,14 +22,8 @@ public class AdminCreateExhibitionCommand implements Command {
     String topic = req.getParameter(Params.TOPIC);
     try {
       Validator.validateNotNull(topic);
-      LOG.debug("---> topic " + topic);
-
       ExhibitionService.getInstance().verifyBeginningBeforeEnd(req);
-      LOG.debug("---> date time ok ");
-
       ExhibitionDao.getInstance().create(req);
-      LOG.debug("---> created ");
-
       req.getSession().setAttribute(Params.INFO_MESSAGE,
           "Exhibition \"" + topic + "\" has been successfully created");
     } catch (DBException | ServiceException | ValidationException e) {

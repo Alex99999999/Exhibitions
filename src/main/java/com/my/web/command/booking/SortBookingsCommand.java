@@ -41,10 +41,24 @@ public class SortBookingsCommand implements Command {
       pageSize = Utils.getInt(req.getParameter(Params.PAGE_SIZE));
       offset = Utils.getOffset(pageSize, page);
       bookingCount = BOOKING_DAO.getAllBookingsCount();
+
+      if (bookingCount < 2) {
+        return Jsp.ADMIN_BOOKINGS_PAGE;
+      }
+
       list = BOOKING_DAO.findAll();
+
       sortable = SortingContainer.getSortingOption(sortingOption);
       sorted = sortable.sort(list);
-      sorted = sorted.subList(offset, offset + pageSize);
+
+      if (sorted.size() < offset) {
+        sorted = sorted.subList(0, sorted.size());
+      } else if (sorted.size() < offset + pageSize) {
+        sorted = sorted.subList(offset, offset + (sorted.size() - offset));
+      } else {
+        sorted = sorted.subList(offset, offset + pageSize);
+      }
+
       Utils.getPagination(req, page, pageSize, bookingCount);
 
     } catch (DBException e) {

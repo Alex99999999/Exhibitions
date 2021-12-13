@@ -158,6 +158,7 @@ ${infoMessage}
 <c:if test="${exhibition.status.status eq 'CURRENT'}">
    <form action = "admin" method = "get">
       <input type="hidden" name="command" value="show_halls_for_exhibition">
+      <input type="hidden" name="exhibition_id" value=${exhibition.id}>
        <div class="d-grid gap-2 col-6 mx-auto">
             <button class="btn btn-secondary btn-md btn-block" type="submit"><fmt:message key="label.set.halls"/></button>
        </div>

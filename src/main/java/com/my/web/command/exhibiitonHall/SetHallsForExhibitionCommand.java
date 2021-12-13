@@ -40,10 +40,14 @@ public class SetHallsForExhibitionCommand implements Command {
     Map<String, String[]> map;
     String[] hallIds;
     long exhibitionId;
+    Exhibition ex;
     try {
       map = Utils.verifyNoneIsNull(req);
       exhibitionId = Utils.retrieveId(req.getParameter(Params.EXHIBITION_ID));
-      Exhibition ex = ExhibitionDao.getInstance().findById(exhibitionId);
+      ex = ExhibitionDao.getInstance().findById(exhibitionId);
+
+      LOG.debug ("----> " + ex);
+
       Validator.validateKey(map, Params.FREE_HALL_ID);
       hallIds = map.get(Params.FREE_HALL_ID);
       if (hallIds.length == 0) {
@@ -57,7 +61,7 @@ public class SetHallsForExhibitionCommand implements Command {
       req.setAttribute(Params.INFO_MESSAGE, e.getMessage());
       return ADDRESS;
     }
-    req.setAttribute(Params.EXHIBITION_ID, exhibitionId);
+    req.getSession().setAttribute(Params.EXHIBITION, ex);
     return ADDRESS;
   }
 

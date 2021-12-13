@@ -31,7 +31,7 @@ public class DbUtils {
       try {
         con.rollback();
       } catch (SQLException e) {
-        String errorMes = "Unable to rollback transaction";
+        String errorMes = "Transaction rollback failure";
         LOG.error(errorMes);
         throw new DBException(errorMes);
       }

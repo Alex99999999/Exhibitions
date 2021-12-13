@@ -49,7 +49,7 @@ public class LoginCommand implements Command {
       login = req.getParameter(Params.LOGIN);
       password = req.getParameter(Params.PASSWORD);
       user = UserDao.getInstance().findByLogin(login);
-      if (user.getLogin() == null) {
+      if (user == null) {
         LOG.warn("User with login " + login + " not found");
         session.setAttribute(Params.LOGIN_ERROR, Logs.ACCESS_DENIED);
         return Jsp.LOGIN_PAGE;

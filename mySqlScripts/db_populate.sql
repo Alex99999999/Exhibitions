@@ -1,7 +1,7 @@
 -- create user role
 
-INSERT into user_role (id, role) VALUES (DEFAULT, "USER");
-INSERT into user_role (id, role) VALUES (DEFAULT, "AUTHORIZED USER");
+INSERT into user_role (id, role) VALUES (DEFAULT, "AUTHORIZED_USER");
+INSERT into user_role (id, role) VALUES (DEFAULT, "AUTHORIZED_USER");
 INSERT into user_role (id, role) VALUES (DEFAULT, "ADMIN");
 
 -- create currency
@@ -11,7 +11,7 @@ INSERT into currency (id, currency) VALUES (DEFAULT, "UAH");
 
 -- create booking_status
 
-INSERT into booking_status (id, status) VALUES (DEFAULT, "AVAILABLE");
+INSERT into booking_status (id, status) VALUES (DEFAULT, "CANCELLED");
 INSERT into booking_status (id, status) VALUES (DEFAULT, "BOOKED");
 INSERT into booking_status (id, status) VALUES (DEFAULT, "PAID");
 

@@ -213,7 +213,6 @@ public class Utils {
    * @param newLogin - params entered by user
    */
   private static void verifyLogin(User user, String newLogin) throws ServiceException, DBException {
-    LOG.debug("----> user login " + user.getLogin());
     if (newLogin.equals(user.getLogin())) {
       errorMes = Logs.ALREADY_SIGNED_IN;
       LOG.error(errorMes);
@@ -250,6 +249,4 @@ public class Utils {
       throw new ServiceException(errorMes);
     }
   }
-
-
 }

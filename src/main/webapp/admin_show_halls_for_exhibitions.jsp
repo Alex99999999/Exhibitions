@@ -120,6 +120,7 @@
     <td class="text-center"><form action="admin" method="post">
                  <input type="hidden" name="command" value="delete_hall_from_exhibition">
                  <input type="hidden" name="hall_id" value=${hall.id}>
+                 <input type="hidden" name="hall_id" value=${exhibition.id}>
                  <button type="submit" class="btn btn-outline-secondary btn-md btn-block"><fmt:message key="label.delete"/></button>
         </form>
      </td>
