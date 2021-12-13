@@ -62,12 +62,4 @@ class CommandContainerTest {
       Assertions.assertEquals(Logs.NO_SUCH_COMMAND, ex.getMessage());
     }
   }
-
-  @Test
-  void test () {
-    List<Integer> list = new ArrayList<>();
-    list.add(1);
-    System.out.println(list.size());
-  }
-
 }
