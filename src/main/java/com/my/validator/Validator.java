@@ -43,6 +43,9 @@ public class Validator {
 
   private static void containsDigitsOnly(String val) throws ValidationException {
     val = val.replaceAll("[0-9]", "");
+
+    LOG.debug("-----> val " + val );
+
     if (!val.isEmpty()) {
       errorMes = Logs.MUST_BE_A_NUMBER;
       LOG.warn(errorMes);

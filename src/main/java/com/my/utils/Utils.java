@@ -184,6 +184,20 @@ public class Utils {
     session.setAttribute(Params.EXHIBITIONS_LIST, list);
   }
 
+  public static void getAllExhibitionList(HttpServletRequest req) throws DBException {
+    List<Exhibition> list;
+    HttpSession session = req.getSession();
+    int exhibitionCount;
+    int pageSize = Integer.parseInt(req.getParameter(Params.PAGE_SIZE));
+    int page = Integer.parseInt(req.getParameter(Params.PAGE));
+    int offset = Utils.getOffset(pageSize, page);
+
+    exhibitionCount = DAO.getAllExhibitionCount();
+    list = DAO.findAllExhibitionsWithOffsetAndLimitNoFilter(offset, pageSize);
+    Utils.getPagination(req, page, pageSize, exhibitionCount);
+    session.setAttribute(Params.EXHIBITIONS_LIST, list);
+  }
+
   public static long retrieveId(String id) throws ValidationException {
     Validator.validateNotNull(id);
     Validator.validateInt(id);

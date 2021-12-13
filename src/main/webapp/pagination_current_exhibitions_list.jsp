@@ -35,6 +35,8 @@
               <div class="col-6">
                <form action="users" method = "get" class="d-flex">
                   <input type="hidden" name="command" value="get_exhibition_by_topic">
+                  <input type="hidden" name="page" value=${page}>
+                                <input type="hidden" name="pageSize" value=${pageSize}>
                     <div class="col-8">
                        <input class="form-control me-2" type="text" placeholder="<fmt:message key="label.search"/>" name="topic">
                     </div>

@@ -65,16 +65,6 @@
 
 <hr>
 
-<form action = "admin" method="get">
-       <input type="hidden" name="command" value="show_admin_halls">
-       <input type="hidden" name="page" value="1">
-       <input type="hidden" name="pageSize" value="5">
-       <button class="btn btn-outline-secondary btn-sm btn-block" type="submit"><fmt:message key="label.drop.filter"/></button>
-</form>
-
-
-<hr>
-
 <!-- Table -->
 
 ${infoMessage}

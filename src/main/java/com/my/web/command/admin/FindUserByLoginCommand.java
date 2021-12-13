@@ -8,6 +8,7 @@ import com.my.entity.UserRole;
 import com.my.exception.DBException;
 import com.my.exception.ValidationException;
 import com.my.utils.constants.Jsp;
+import com.my.utils.constants.Logs;
 import com.my.validator.Validator;
 import com.my.utils.constants.Params;
 import java.util.List;
@@ -39,6 +40,12 @@ public class FindUserByLoginCommand implements Command {
     try {
       Validator.validateNotNull(login);
       user = DAO.findByLoginLike(login);
+
+      if(user == null) {
+        session.setAttribute(Params.INFO_MESSAGE, Logs.NOTHING_FOUND_PER_YOUR_REQUEST);
+        return "admin?command=show_admin_users&page=1&pageSize=5";
+      }
+
       roleList = RoleDao.getInstance().findAll();
     } catch (DBException | ValidationException e) {
       LOG.error(e.getMessage());
