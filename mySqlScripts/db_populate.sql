@@ -1,7 +1,6 @@
 -- create user role
 
 INSERT into user_role (id, role) VALUES (DEFAULT, "AUTHORIZED_USER");
-INSERT into user_role (id, role) VALUES (DEFAULT, "AUTHORIZED_USER");
 INSERT into user_role (id, role) VALUES (DEFAULT, "ADMIN");
 
 -- create currency
@@ -34,7 +33,7 @@ INSERT into exhibition_status (id, status) VALUES (DEFAULT, "POSTPONED");
 SET @text = 'admin';
 INSERT into user (id, login, password, user_roles_id) VALUES (DEFAULT, @text, '21232F297A57A5A743894A0E4A801FC3', (SELECT id from user_role where role = @text));
 
-INSERT into user (id, login, password, user_roles_id) VALUES (DEFAULT,  'eva', '14BD76E02198410C078AB65227EA0794', (SELECT id from user_role where role = 'user'));
+INSERT into user (id, login, password, user_roles_id) VALUES (DEFAULT,  'eva', '14BD76E02198410C078AB65227EA0794', (SELECT id from user_role where role = 'authorized_user'));
 
 -- create hall
 
