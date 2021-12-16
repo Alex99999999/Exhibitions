@@ -1,4 +1,4 @@
-package com.my.db.dao.bookingStaus;
+package com.my.db.dao.bookingStatus;
 
 
 import com.my.utils.DbUtils;
@@ -22,7 +22,8 @@ class BookingStatusRepo {
   private static final Factory factory = Factory.getInstance();
   private String errorMes;
 
-  private BookingStatusRepo(){}
+  private BookingStatusRepo() {
+  }
 
   public static synchronized BookingStatusRepo getInstance() {
     if (instance == null) {
@@ -38,7 +39,7 @@ class BookingStatusRepo {
     ResultSet rs = null;
     try {
       stmt = con.createStatement();
-      rs= stmt.executeQuery(Sql.FIND_ALL);
+      rs = stmt.executeQuery(Sql.FIND_ALL);
       while (rs.next()) {
         list.add(factory.createBookingStatus(rs));
       }

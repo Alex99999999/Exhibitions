@@ -1,6 +1,6 @@
 package com.my.utils;
 
-import com.my.db.dao.bookingStaus.BookingStatusDao;
+import com.my.db.dao.bookingStatus.BookingStatusDao;
 import com.my.db.dao.currency.CurrencyDao;
 import com.my.db.dao.exhibition.ExhibitionDao;
 import com.my.db.dao.exhibitionStatus.ExhibitionStatusDao;

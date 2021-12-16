@@ -2,7 +2,7 @@ package com.my.web.command.admin;
 
 import com.my.command.Command;
 import com.my.db.dao.booking.BookingDao;
-import com.my.db.dao.bookingStaus.BookingStatusDao;
+import com.my.db.dao.bookingStatus.BookingStatusDao;
 import com.my.entity.Booking;
 import com.my.entity.BookingStatus;
 import com.my.exception.DBException;

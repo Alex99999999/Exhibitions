@@ -1,4 +1,4 @@
-package com.my.db.dao.bookingStaus;
+package com.my.db.dao.bookingStatus;
 
 public class Sql {
 

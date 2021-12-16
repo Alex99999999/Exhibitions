@@ -5,7 +5,7 @@ import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
-import com.my.db.dao.bookingStaus.BookingStatusDao;
+import com.my.db.dao.bookingStatus.BookingStatusDao;
 import com.my.db.dao.exhibition.ExhibitionDao;
 import com.my.db.dao.user.UserDao;
 import com.my.entity.Booking;

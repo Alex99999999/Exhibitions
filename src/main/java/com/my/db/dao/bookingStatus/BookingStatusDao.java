@@ -1,10 +1,8 @@
-package com.my.db.dao.bookingStaus;
+package com.my.db.dao.bookingStatus;
 
-import com.my.db.dao.Dao;
 import com.my.entity.BookingStatus;
 import com.my.exception.DBException;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 
 public class BookingStatusDao {
 
