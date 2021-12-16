@@ -259,7 +259,7 @@ class BookingRepo {
     return bookingCount;
   }
 
-  List<Booking> FilterAllByStringLimitOffset(String sql, String filter, int limit, int offset)
+  List<Booking> filterAllByStringLimitOffset(String sql, String filter, int limit, int offset)
       throws DBException {
     List<Booking> bookingList;
     Connection con = DbUtils.getCon();
@@ -279,13 +279,13 @@ class BookingRepo {
     return bookingList;
   }
 
-  List<Booking> FilterAllByStatusAndLoginLimitOffset(String sql, String login, String status,
+  List<Booking> filterAllByStatusAndLoginLimitOffset(String sql, String login, String status,
       int limit, int offset) throws DBException {
     List<Booking> bookingList;
     Connection con = DbUtils.getCon();
     PreparedStatement stmt;
     try {
-      stmt = con.prepareStatement(Sql.FIND_ALL_BY_LOGIN_AND_STATUS_OFFSET_LIMIT_NO_FILTER);
+      stmt = con.prepareStatement(sql);
       int k = 0;
       stmt.setString(++k, status);
       stmt.setString(++k, login);

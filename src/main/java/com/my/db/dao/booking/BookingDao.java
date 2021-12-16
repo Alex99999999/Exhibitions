@@ -4,11 +4,8 @@ import com.my.db.dao.Dao;
 import com.my.entity.Booking;
 import com.my.exception.DBException;
 import com.my.exception.ServiceException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.log4j.Logger;
 
 public class BookingDao implements Dao {
 
@@ -71,19 +68,19 @@ public class BookingDao implements Dao {
   public List<Booking> findAllByStatusOffsetLimitNoFilter(int offset, int limit, String status)
       throws DBException {
     String sql = Sql.FIND_ALL_BY_STATUS_OFFSET_LIMIT_NO_FILTER;
-    return bookingRepo.FilterAllByStringLimitOffset(sql, status, limit, offset);
+    return bookingRepo.filterAllByStringLimitOffset(sql, status, limit, offset);
   }
 
   public List<Booking> findAllByUserLoginOffsetLimitNoFilter(int offset, int limit, String login)
       throws DBException {
     String sql = Sql.FIND_ALL_BY_LOGIN_OFFSET_LIMIT_NO_FILTER;
-    return bookingRepo.FilterAllByStringLimitOffset(sql, login, limit, offset);
+    return bookingRepo.filterAllByStringLimitOffset(sql, login, limit, offset);
   }
 
   public List<Booking> findAllByStatusAndUserLoginOffsetLimitNoFilter(int offset, int limit,
       String status, String login) throws DBException {
     String sql = Sql.FIND_ALL_BY_LOGIN_AND_STATUS_OFFSET_LIMIT_NO_FILTER;
-    return bookingRepo.FilterAllByStatusAndLoginLimitOffset(sql, login, status, limit, offset);
+    return bookingRepo.filterAllByStatusAndLoginLimitOffset(sql, login, status, limit, offset);
   }
 
   public int findCountByExhibitionIdAndStatus(long id, String booked, String paid)
