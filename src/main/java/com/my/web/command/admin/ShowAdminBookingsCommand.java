@@ -4,7 +4,7 @@ import com.my.command.Command;
 import com.my.db.dao.booking.BookingDao;
 import com.my.db.dao.bookingStatus.BookingStatusDao;
 import com.my.entity.Booking;
-import com.my.entity.BookingStatus;
+import com.my.entity.Status;
 import com.my.exception.DBException;
 import com.my.exception.ValidationException;
 import com.my.utils.Utils;
@@ -23,7 +23,7 @@ public class ShowAdminBookingsCommand implements Command {
   @Override
   public String execute(HttpServletRequest req, HttpServletResponse resp) {
     List<Booking> list;
-    List<BookingStatus> statusList;
+    List<Status> statusList;
     int pageSize;
     int page;
     int bookingCount;

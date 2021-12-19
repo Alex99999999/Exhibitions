@@ -4,7 +4,7 @@ import com.my.command.Command;
 import com.my.db.dao.hall.HallDao;
 import com.my.db.dao.hallStatus.HallStatusDao;
 import com.my.entity.Hall;
-import com.my.entity.HallStatus;
+import com.my.entity.Status;
 import com.my.exception.DBException;
 import com.my.exception.ValidationException;
 import com.my.utils.Utils;
@@ -32,7 +32,7 @@ public class ShowAdminHallsCommand implements Command {
     HttpSession session = req.getSession();
     HallDao dao = HallDao.getInstance();
     List<Hall> hallList;
-    List<HallStatus> statusList;
+    List<Status> statusList;
     int pageSize;
     int page;
     int hallCount;

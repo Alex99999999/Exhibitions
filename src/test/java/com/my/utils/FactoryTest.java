@@ -5,10 +5,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.my.db.dao.role.RoleDao;
-import com.my.entity.BookingStatus;
 import com.my.entity.Currency;
-import com.my.entity.ExhibitionStatus;
-import com.my.entity.HallStatus;
+import com.my.entity.Status;
 import com.my.entity.UserRole;
 import com.my.exception.DBException;
 import com.my.utils.constants.Columns;
@@ -27,7 +25,7 @@ class FactoryTest {
   private static MockedStatic<RoleDao> roleDaoMock;
 
   @BeforeClass
-  void setupGlobal() {
+  static void setupGlobal() {
     roleDaoMock = Mockito.mockStatic(RoleDao.class);
   }
 
@@ -46,7 +44,7 @@ class FactoryTest {
   void createUserExhibitionStatusInstance() throws SQLException, DBException {
     when(rs.getLong(Columns.ID)).thenReturn(152L);
     when(rs.getString(Columns.STATUS)).thenReturn("current");
-    ExhibitionStatus status = factory.createExhibitionStatus(rs);
+    Status status = factory.createStatus(rs);
     Assertions.assertNotNull(status);
     Assertions.assertEquals("current", status.getStatus());
     Assertions.assertEquals(152, status.getId());
@@ -66,7 +64,7 @@ class FactoryTest {
   void createHallStatusInstance() throws SQLException, DBException {
     when(rs.getLong(Columns.ID)).thenReturn(152L);
     when(rs.getString(Columns.STATUS)).thenReturn("free");
-    HallStatus status = factory.createHallStatus(rs);
+    Status status = factory.createStatus(rs);
     Assertions.assertNotNull(status);
     Assertions.assertEquals("free", status.getStatus());
     Assertions.assertEquals(152, status.getId());
@@ -76,7 +74,7 @@ class FactoryTest {
   void createBookingStatusInstance() throws SQLException, DBException {
     when(rs.getLong(Columns.ID)).thenReturn(152L);
     when(rs.getString(Columns.STATUS)).thenReturn("paid");
-    BookingStatus status = factory.createBookingStatus(rs);
+    Status status = factory.createStatus(rs);
     Assertions.assertNotNull(status);
     Assertions.assertEquals("paid", status.getStatus());
     Assertions.assertEquals(152, status.getId());

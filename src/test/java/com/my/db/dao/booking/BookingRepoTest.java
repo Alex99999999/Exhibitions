@@ -9,8 +9,8 @@ import com.my.db.dao.bookingStatus.BookingStatusDao;
 import com.my.db.dao.exhibition.ExhibitionDao;
 import com.my.db.dao.user.UserDao;
 import com.my.entity.Booking;
-import com.my.entity.BookingStatus;
 import com.my.entity.Exhibition;
+import com.my.entity.Status;
 import com.my.entity.User;
 import com.my.exception.DBException;
 import com.my.utils.DbUtils;
@@ -102,7 +102,7 @@ public class BookingRepoTest {
 
     when(userDao.findById(20L)).thenReturn(User.getInstance());
     when(exhibitionDao.findById(20L)).thenReturn(Exhibition.getInstance());
-    when(bookingStatusDao.findById(20L)).thenReturn(BookingStatus.getInstance());
+    when(bookingStatusDao.findById(20L)).thenReturn(Status.getInstance());
 
   }
 

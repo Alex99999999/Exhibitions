@@ -1,7 +1,13 @@
 package com.my.entity;
 
 import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
 public class Currency implements Serializable {
 
   private long id;
@@ -15,27 +21,4 @@ public class Currency implements Serializable {
     return new Currency();
   }
 
-  public void setId(long id) {
-    this.id = id;
-  }
-
-  public void setCurrency(String currency) {
-    this.currency = currency;
-  }
-
-  public long getId() {
-    return id;
-  }
-
-  public String getCurrency() {
-    return currency;
-  }
-
-  @Override
-  public String toString() {
-    return "Currency{" +
-        "id=" + id +
-        ", currency='" + currency + '\'' +
-        '}';
-  }
 }

@@ -74,7 +74,7 @@ class ExhibitionHallsRepo {
       stmt.setLong(1, id);
       stmt.executeUpdate();
       Hall hall = hallDao.findById(id);
-      hall.setHallStatus(HallStatusDao.getInstance().findByStatus(Params.FREE));
+      hall.setStatus(HallStatusDao.getInstance().findByStatus(Params.FREE));
       hallDao.update(hall, Params.FREE);
       con.commit();
     } catch (SQLException e) {

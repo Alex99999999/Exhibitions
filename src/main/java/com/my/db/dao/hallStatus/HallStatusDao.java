@@ -1,13 +1,14 @@
 package com.my.db.dao.hallStatus;
 
-import com.my.entity.HallStatus;
+import com.my.db.dao.StatusRepo;
+import com.my.entity.Status;
 import com.my.exception.DBException;
 import java.util.List;
 
 public class HallStatusDao {
 
   private static HallStatusDao instance;
-  private static final  HallStatusRepo HALL_STATUS_REPO = HallStatusRepo.getInstance();
+  private static final StatusRepo REPO = StatusRepo.getInstance();
 
   public static synchronized HallStatusDao getInstance() {
     if (instance == null) {
@@ -19,15 +20,18 @@ public class HallStatusDao {
   private HallStatusDao() {
   }
 
-  public List<HallStatus> findAll() throws DBException {
-    return HALL_STATUS_REPO.findAllHallStatuses();
+  public List<Status> findAll() throws DBException {
+    String sql = Sql.FIND_ALL;
+    return REPO.findAll(sql);
   }
 
-  public HallStatus findById(long id) throws DBException {
-    return HALL_STATUS_REPO.findHallStatusById(id);
+  public Status findById(long id) throws DBException {
+    String sql = Sql.FIND_BY_ID;
+    return REPO.findById(sql, id);
   }
 
-  public HallStatus findByStatus(String status) throws DBException {
-    return HALL_STATUS_REPO.findHallByStatus(status);
+  public Status findByStatus(String status) throws DBException {
+    String sql = Sql.FIND_BY_STATUS;
+    return REPO.findByString(sql, status);
   }
 }

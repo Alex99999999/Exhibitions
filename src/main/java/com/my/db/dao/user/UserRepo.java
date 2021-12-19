@@ -251,7 +251,6 @@ class UserRepo {
       stmt.setString(++k, psw);
       stmt.setLong(++k, roleId);
       stmt.setLong(++k, userId);
-      LOG.debug("----> stmt " + stmt);
       stmt.executeUpdate();
     } catch (SQLException e) {
       errorMes = Logs.UPDATE_USER_ERROR;

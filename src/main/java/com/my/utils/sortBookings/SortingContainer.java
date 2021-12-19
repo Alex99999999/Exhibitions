@@ -17,9 +17,10 @@ public class SortingContainer {
     sortingMap.put("booking_topic", new BookingTopicSorting());
     sortingMap.put("booking_exhibition_status", new BookingExhibitionStatusSorting());
     sortingMap.put("booking_price", new BookingPriceSorting());
-    sortingMap.put("booking_status", new BookingStatusSorting());
+//    sortingMap.put("booking_status", new BookingStatusSorting());
     sortingMap.put("booking_user", new BookingUserSorting());
     sortingMap.put("booking_tickets", new BookingTicketQuantitySorting());
+    sortingMap.put("booking_status", new StatusSorting());
   }
 
   public static Sortable getSortingOption(String key) throws ValidationException {

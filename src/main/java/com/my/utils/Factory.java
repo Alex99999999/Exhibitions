@@ -8,12 +8,10 @@ import com.my.db.dao.hallStatus.HallStatusDao;
 import com.my.db.dao.role.RoleDao;
 import com.my.db.dao.user.UserDao;
 import com.my.entity.Booking;
-import com.my.entity.BookingStatus;
 import com.my.entity.Currency;
 import com.my.entity.Exhibition;
-import com.my.entity.ExhibitionStatus;
 import com.my.entity.Hall;
-import com.my.entity.HallStatus;
+import com.my.entity.Status;
 import com.my.entity.User;
 import com.my.entity.UserRole;
 import com.my.exception.DBException;
@@ -72,10 +70,10 @@ public class Factory {
     Exhibition exhibition = Exhibition.getInstance();
     try {
       exhibition.setId(rs.getLong(Columns.ID));
-      String startDate = service.DateDisplayFormat(rs.getString(Columns.START_DATE));
-      String endDate = service.DateDisplayFormat(rs.getString(Columns.END_DATE));
-      String startTime = service.TimeDisplayFormat(rs.getString(Columns.START_TIME));
-      String endTime = service.TimeDisplayFormat(rs.getString(Columns.END_TIME));
+      String startDate = service.dateDisplayFormat(rs.getString(Columns.START_DATE));
+      String endDate = service.dateDisplayFormat(rs.getString(Columns.END_DATE));
+      String startTime = service.timeDisplayFormat(rs.getString(Columns.START_TIME));
+      String endTime = service.timeDisplayFormat(rs.getString(Columns.END_TIME));
       exhibition.setStartDate(startDate);
       exhibition.setEndDate(endDate);
       exhibition.setStartTime(startTime);
@@ -92,18 +90,6 @@ public class Factory {
 
     }
     return exhibition;
-  }
-
-  public ExhibitionStatus createExhibitionStatus(ResultSet rs) throws DBException {
-    ExhibitionStatus status = ExhibitionStatus.getInstance();
-    try {
-      status.setId(rs.getLong(Columns.ID));
-      status.setStatus(rs.getString(Columns.STATUS));
-    } catch (SQLException e) {
-      LOG.warn(ERROR_MES, e);
-      throw new DBException(ERROR_MES);
-    }
-    return status;
   }
 
   public Currency createCurrency(ResultSet rs) throws DBException {
@@ -125,7 +111,7 @@ public class Factory {
       hall.setFloor(rs.getInt(Columns.FLOOR));
       hall.setHallNo(rs.getInt(Columns.HALL_NO));
       hall.setFloorSpace(rs.getDouble(Columns.FLOOR_SPACE));
-      hall.setHallStatus(HallStatusDao.getInstance().findById(rs.getLong(Columns.STATUS_ID)));
+      hall.setStatus(HallStatusDao.getInstance().findById(rs.getLong(Columns.STATUS_ID)));
     } catch (SQLException e) {
       LOG.warn(ERROR_MES, e);
       throw new DBException(ERROR_MES);
@@ -148,8 +134,8 @@ public class Factory {
     return booking;
   }
 
-  public HallStatus createHallStatus(ResultSet rs) throws DBException {
-    HallStatus status = HallStatus.getInstance();
+  public Status createStatus(ResultSet rs) throws DBException {
+    Status status = Status.getInstance();
     try {
       status.setId(rs.getLong(Columns.ID));
       status.setStatus(rs.getString(Columns.STATUS));
@@ -158,17 +144,5 @@ public class Factory {
       throw new DBException(ERROR_MES);
     }
     return status;
-  }
-
-  public BookingStatus createBookingStatus(ResultSet rs) throws DBException {
-    BookingStatus bookingStatus = BookingStatus.getInstance();
-    try {
-      bookingStatus.setId(rs.getLong(Columns.ID));
-      bookingStatus.setStatus(rs.getString(Columns.STATUS));
-    } catch (SQLException e) {
-      LOG.warn(ERROR_MES, e);
-      throw new DBException(ERROR_MES);
-    }
-    return bookingStatus;
   }
 }

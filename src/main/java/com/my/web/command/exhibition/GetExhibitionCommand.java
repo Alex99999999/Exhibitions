@@ -6,7 +6,7 @@ import com.my.db.dao.exhibition.ExhibitionDao;
 import com.my.db.dao.exhibitionStatus.ExhibitionStatusDao;
 import com.my.entity.Currency;
 import com.my.entity.Exhibition;
-import com.my.entity.ExhibitionStatus;
+import com.my.entity.Status;
 import com.my.exception.DBException;
 import com.my.exception.ValidationException;
 import com.my.utils.Utils;
@@ -30,7 +30,7 @@ public class GetExhibitionCommand implements Command {
   @Override
   public String execute(HttpServletRequest req, HttpServletResponse resp) {
     Exhibition exhibition;
-    List<ExhibitionStatus> exStatList;
+    List<Status> exStatList;
     List<Currency> curList;
     long id;
     try {

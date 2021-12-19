@@ -133,7 +133,7 @@ class ExhibitionServiceTest {
   void DateDisplayFormatShouldReturnCorrectDateIfExpectedInput() throws ValidationException {
     String date = "2021-12-23";
     String expected = "Dec 23, 2021";
-    String actual = service.DateDisplayFormat(date);
+    String actual = service.dateDisplayFormat(date);
     Assertions.assertEquals(expected, actual);
   }
 
@@ -143,14 +143,14 @@ class ExhibitionServiceTest {
   void DateDisplayFormatShouldReturnCorrectDateIfDayIsOneDigitValue() throws ValidationException {
     String date = "2021-12-03";
     String expected = "Dec 03, 2021";
-    String actual = service.DateDisplayFormat(date);
+    String actual = service.dateDisplayFormat(date);
     Assertions.assertEquals(expected, actual);
   }
 
   @Test
   void DateDisplayFormatShouldThrowValidationExceptionIfInputIsNull() {
     ValidationException ex = Assertions
-        .assertThrows(ValidationException.class, () -> service.DateDisplayFormat(null));
+        .assertThrows(ValidationException.class, () -> service.dateDisplayFormat(null));
     Assertions.assertEquals(Logs.NULL_NOT_ALLOWED, ex.getMessage());
   }
 
@@ -158,7 +158,7 @@ class ExhibitionServiceTest {
   void TimeDisplayFormatShouldReturnCorrectTimeIfExpectedInput() throws ValidationException {
     String date = "08:00:00";
     String expected = "08:00";
-    String actual = service.TimeDisplayFormat(date);
+    String actual = service.timeDisplayFormat(date);
     Assertions.assertEquals(expected, actual);
   }
 
@@ -167,14 +167,14 @@ class ExhibitionServiceTest {
       throws ValidationException {
     String date = "08:05:05";
     String expected = "08:05";
-    String actual = service.TimeDisplayFormat(date);
+    String actual = service.timeDisplayFormat(date);
     Assertions.assertEquals(expected, actual);
   }
 
   @Test
   void TimeDisplayFormatShouldThrowValidationExceptionIfInputIsNull() {
     ValidationException ex = Assertions
-        .assertThrows(ValidationException.class, () -> service.TimeDisplayFormat(null));
+        .assertThrows(ValidationException.class, () -> service.timeDisplayFormat(null));
     Assertions.assertEquals(Logs.NULL_NOT_ALLOWED, ex.getMessage());
   }
 

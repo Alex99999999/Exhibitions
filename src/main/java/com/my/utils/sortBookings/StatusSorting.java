@@ -4,7 +4,7 @@ import com.my.entity.Booking;
 import java.util.Collections;
 import java.util.List;
 
-public class BookingStatusSorting implements Sortable<Booking> {
+public class StatusSorting implements Sortable<Booking> {
 
   @Override
   public List<Booking> sort(List<Booking> list) {

@@ -4,7 +4,7 @@ import com.my.command.Command;
 import com.my.db.dao.currency.CurrencyDao;
 import com.my.db.dao.exhibitionStatus.ExhibitionStatusDao;
 import com.my.entity.Currency;
-import com.my.entity.ExhibitionStatus;
+import com.my.entity.Status;
 import com.my.exception.DBException;
 import com.my.utils.constants.Jsp;
 import com.my.utils.constants.Params;
@@ -26,7 +26,7 @@ public class ShowAdminCreatePageCommand implements Command {
   public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
     List<Currency> currency;
-    List<ExhibitionStatus> status;
+    List<Status> status;
 
     try {
       currency = CurrencyDao.getInstance().findAll();

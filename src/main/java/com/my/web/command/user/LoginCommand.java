@@ -64,7 +64,6 @@ public class LoginCommand implements Command {
       }
 
       userRole = UserDao.getInstance().findRole(user);
-
       session.setAttribute(Params.CURRENT_USER, user);
       session.setMaxInactiveInterval(30 * 60);
 

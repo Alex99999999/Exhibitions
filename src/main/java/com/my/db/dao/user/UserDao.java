@@ -82,7 +82,6 @@ public class UserDao implements Dao {
 
   public String findRole(User user) throws DBException {
     return repo.getRole(user.getRole().getId());
-
   }
 
   public void update(User user) throws DBException {

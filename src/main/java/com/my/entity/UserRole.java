@@ -1,7 +1,13 @@
 package com.my.entity;
 
 import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
 public class UserRole implements Serializable {
 
   private long id;
@@ -10,31 +16,7 @@ public class UserRole implements Serializable {
   private UserRole() {
   }
 
-  public static UserRole getInstance() {
+  public static UserRole getInstance(){
     return new UserRole();
-  }
-
-  public void setId(long id) {
-    this.id = id;
-  }
-
-  public void setRole(String role) {
-    this.role = role;
-  }
-
-  public long getId() {
-    return id;
-  }
-
-  public String getRole() {
-    return role;
-  }
-
-  @Override
-  public String toString() {
-    return "UserRole{" +
-        "id=" + id +
-        ", role='" + role + '\'' +
-        '}';
   }
 }

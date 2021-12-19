@@ -1,10 +1,10 @@
-package com.my.db.dao.bookingStatus;
+package com.my.db.dao;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
-import com.my.entity.BookingStatus;
+import com.my.entity.Status;
 import com.my.exception.DBException;
 import com.my.utils.DbUtils;
 import com.my.utils.constants.Columns;
@@ -23,21 +23,24 @@ import org.junit.jupiter.api.Assertions;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
-public class BookingStatusRepoTest {
+public class StatusRepoTest {
 
- private ResultSet rs;
- private Statement stmt;
- private PreparedStatement ps;
- private Connection con;
- private BookingStatusRepo repo;
+  private ResultSet rs;
+  private Statement stmt;
+  private PreparedStatement ps;
+  private Connection con;
+  private StatusRepo repo;
+  private String sqlFindAll = "select * from booking_status";
+  private String sqlFindById = "select * from booking_status where id=?";
+  private String sqlFindByStatus = "select * from booking_status where status=?";
 
   private static MockedStatic<DbUtils> mockDbUtils;
-  private static MockedStatic<BookingStatusRepo> mockRepo;
+  private static MockedStatic<StatusRepo> mockRepo;
 
   @BeforeClass
   public static void setupGlobal() {
     mockDbUtils = Mockito.mockStatic(DbUtils.class);
-    mockRepo = Mockito.mockStatic(BookingStatusRepo.class);
+    mockRepo = Mockito.mockStatic(StatusRepo.class);
   }
 
   @AfterClass
@@ -57,7 +60,7 @@ public class BookingStatusRepoTest {
         .thenReturn(2L);
 
     when(rs.getString(Columns.STATUS))
-        .thenReturn("booked");
+        .thenReturn("status");
 
     stmt = mock(Statement.class);
 
@@ -67,14 +70,15 @@ public class BookingStatusRepoTest {
 
     con = mock(Connection.class);
 
-    repo = mock(BookingStatusRepo.class);
+    repo = mock(StatusRepo.class);
 
     mockDbUtils.when(DbUtils::getCon).thenReturn(con);
-    mockRepo.when(BookingStatusRepo::getInstance).thenReturn(repo);
+    mockRepo.when(StatusRepo::getInstance).thenReturn(repo);
   }
 
   @Test
-  public void findAllBookingStatusesShouldReturnList() throws SQLException, DBException {
+  public void findAllShouldReturnList() throws SQLException, DBException {
+
     reset(rs);
     when(rs.next())
         .thenReturn(true)
@@ -86,19 +90,19 @@ public class BookingStatusRepoTest {
         .thenReturn(2L);
 
     when(rs.getString(Columns.STATUS))
-        .thenReturn("paid")
-        .thenReturn("booked");
+        .thenReturn("status1")
+        .thenReturn("status2");
 
-    when(repo.findAllBookingStatuses())
+    when(repo.findAll(sqlFindAll))
         .thenCallRealMethod();
 
     when(con.createStatement())
         .thenReturn(stmt);
 
-    when(stmt.executeQuery(Sql.FIND_ALL))
+    when(stmt.executeQuery(sqlFindAll))
         .thenReturn(rs);
 
-    List<BookingStatus> list = repo.findAllBookingStatuses();
+    List<Status> list = repo.findAll(sqlFindAll);
 
     Assertions.assertEquals(2, list.size());
   }
@@ -112,27 +116,27 @@ public class BookingStatusRepoTest {
     when(con.createStatement())
         .thenReturn(stmt);
 
-    when(stmt.executeQuery(Sql.FIND_ALL))
+    when(stmt.executeQuery(sqlFindAll))
         .thenReturn(rs);
 
-    when(repo.findAllBookingStatuses())
+    when(repo.findAll(sqlFindAll))
         .thenCallRealMethod();
 
     DBException ex = Assertions
-        .assertThrows(DBException.class, () -> repo.findAllBookingStatuses());
+        .assertThrows(DBException.class, () -> repo.findAll(sqlFindAll));
     Assertions.assertEquals(Logs.NOTHING_FOUND_PER_YOUR_REQUEST, ex.getMessage());
   }
 
   @Test
   public void findStatusByIdShouldReturnResult() throws SQLException, DBException {
-    when(con.prepareStatement(Sql.FIND_BY_ID))
+    when(con.prepareStatement(sqlFindById))
         .thenReturn(ps);
 
-    when(repo.findStatusById(2L))
+    when(repo.findById(sqlFindById, 2L))
         .thenCallRealMethod();
 
-    BookingStatus status = repo.findStatusById(2L);
-    Assertions.assertEquals("booked", status.getStatus());
+    Status status = repo.findById(sqlFindById, 2L);
+    Assertions.assertEquals("status", status.getStatus());
   }
 
   @Test
@@ -141,15 +145,43 @@ public class BookingStatusRepoTest {
     when(rs.next())
         .thenThrow(SQLException.class);
 
-    when(con.prepareStatement(Sql.FIND_BY_ID))
+    when(con.prepareStatement(sqlFindById))
         .thenReturn(ps);
 
-    when(repo.findStatusById(2L))
+    when(repo.findById(sqlFindById, 2L))
         .thenCallRealMethod();
 
-    DBException e = Assertions.assertThrows(DBException.class, () -> repo.findStatusById(2L));
+    DBException e = Assertions
+        .assertThrows(DBException.class, () -> repo.findById(sqlFindById, 2L));
     Assertions.assertEquals(Logs.NOTHING_FOUND_PER_YOUR_REQUEST, e.getMessage());
   }
 
+  @Test
+  public void findByStringShouldReturnResult() throws SQLException, DBException {
+    when(con.prepareStatement(sqlFindByStatus))
+        .thenReturn(ps);
 
+    when(repo.findByString(sqlFindByStatus, "status"))
+        .thenCallRealMethod();
+
+    Status status = repo.findByString(sqlFindByStatus, "status");
+    Assertions.assertEquals("status", status.getStatus());
+  }
+
+  @Test
+  public void findBStringShouldThrowDbException() throws SQLException, DBException {
+    reset(rs);
+    when(rs.next())
+        .thenThrow(SQLException.class);
+
+    when(con.prepareStatement(sqlFindByStatus))
+        .thenReturn(ps);
+
+    when(repo.findByString(sqlFindByStatus, "status"))
+        .thenCallRealMethod();
+
+    DBException e = Assertions
+        .assertThrows(DBException.class, () -> repo.findByString(sqlFindByStatus, "status"));
+    Assertions.assertEquals(Logs.NOTHING_FOUND_PER_YOUR_REQUEST, e.getMessage());
+  }
 }

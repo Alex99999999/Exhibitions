@@ -3,6 +3,7 @@ package com.my.web.command.admin;
 import com.my.command.Command;
 import com.my.db.dao.role.RoleDao;
 import com.my.db.dao.user.UserDao;
+import com.my.entity.Status;
 import com.my.entity.User;
 import com.my.entity.UserRole;
 import com.my.exception.DBException;

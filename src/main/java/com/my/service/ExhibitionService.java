@@ -143,7 +143,7 @@ public class ExhibitionService {
     return inst;
   }
 
-  public String DateDisplayFormat(String inputDate) throws ValidationException {
+  public String dateDisplayFormat(String inputDate) throws ValidationException {
     Validator.validateNotNull(inputDate);
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate localDate = LocalDate.parse(inputDate, formatter);
@@ -154,7 +154,7 @@ public class ExhibitionService {
     return String.format("%s %s, %d", monthName, day, year);
   }
 
-  public String TimeDisplayFormat(String inputTime) throws ValidationException {
+  public String timeDisplayFormat(String inputTime) throws ValidationException {
     Validator.validateNotNull(inputTime);
     LocalTime localTime = LocalTime.parse(inputTime, DateTimeFormatter.ofPattern("HH:mm:ss"));
     int hour = localTime.getHour();

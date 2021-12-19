@@ -1,6 +1,7 @@
 package com.my.db.dao.exhibitionStatus;
 
-import com.my.entity.ExhibitionStatus;
+import com.my.db.dao.StatusRepo;
+import com.my.entity.Status;
 import com.my.exception.DBException;
 import java.util.List;
 
@@ -15,11 +16,13 @@ public class ExhibitionStatusDao {
     return instance;
   }
 
-  public List<ExhibitionStatus> findAll() throws DBException {
-    return ExhibitionStatusRepo.getInstance().findAllStatuses();
+  public List<Status> findAll() throws DBException {
+    String sql = Sql.FIND_ALL;
+    return StatusRepo.getInstance().findAll(sql);
   }
 
-  public ExhibitionStatus findById(long id) throws DBException {
-    return ExhibitionStatusRepo.getInstance().findByIdentifier(id);
+  public Status findById(long id) throws DBException {
+    String sql = Sql.FIND_BY_ID;
+    return StatusRepo.getInstance().findById(sql, id);
   }
 }

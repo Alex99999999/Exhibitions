@@ -4,6 +4,7 @@ import com.my.db.dao.exhibition.ExhibitionDao;
 import com.my.db.dao.role.RoleDao;
 import com.my.db.dao.user.UserDao;
 import com.my.entity.Exhibition;
+import com.my.entity.Status;
 import com.my.entity.User;
 import com.my.entity.UserRole;
 import com.my.exception.CommandException;

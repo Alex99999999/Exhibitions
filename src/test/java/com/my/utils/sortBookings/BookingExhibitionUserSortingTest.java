@@ -1,8 +1,6 @@
 package com.my.utils.sortBookings;
 
 import com.my.entity.Booking;
-import com.my.entity.Exhibition;
-import com.my.entity.ExhibitionStatus;
 import com.my.entity.User;
 import java.util.ArrayList;
 import java.util.List;

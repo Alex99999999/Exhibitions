@@ -2,7 +2,7 @@ package com.my.utils.sortBookings;
 
 import com.my.entity.Booking;
 import com.my.entity.Exhibition;
-import com.my.entity.ExhibitionStatus;
+import com.my.entity.Status;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.BeforeClass;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Assertions;
 public class BookingExhibitionStatusSortingTest {
 
   private static List<Booking> list = new ArrayList<>();
-  private static ExhibitionStatus status;
+  private static Status status;
   private static Exhibition exhibition;
   private static Booking booking1;
   private static Booking booking2;
@@ -20,7 +20,7 @@ public class BookingExhibitionStatusSortingTest {
 
   @BeforeClass
   public static void setup() {
-    status = ExhibitionStatus.getInstance();
+    status = Status.getInstance();
     status.setStatus("pending");
     exhibition = Exhibition.getInstance();
     exhibition.setStatus(status);
@@ -29,7 +29,7 @@ public class BookingExhibitionStatusSortingTest {
 
     list.add(booking1);
 
-    status = ExhibitionStatus.getInstance();
+    status = Status.getInstance();
     status.setStatus("current");
     exhibition = Exhibition.getInstance();
     exhibition.setStatus(status);

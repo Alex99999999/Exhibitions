@@ -1,13 +1,14 @@
 package com.my.db.dao.bookingStatus;
 
-import com.my.entity.BookingStatus;
+import com.my.db.dao.StatusRepo;
+import com.my.entity.Status;
 import com.my.exception.DBException;
 import java.util.List;
 
 public class BookingStatusDao {
 
   private static BookingStatusDao instance;
-  private static final BookingStatusRepo BOOKING_STATUS_REPO  = BookingStatusRepo.getInstance();
+  private static final StatusRepo STATUS_REPO  = StatusRepo.getInstance();
 
   public static synchronized BookingStatusDao getInstance() {
     if (instance == null) {
@@ -16,11 +17,13 @@ public class BookingStatusDao {
     return instance;
   }
 
-  public List<BookingStatus> findAll() throws DBException {
-    return BOOKING_STATUS_REPO.findAllBookingStatuses();
+  public List<Status> findAll() throws DBException {
+    String sql = Sql.FIND_ALL;
+    return STATUS_REPO.findAll(sql);
   }
 
-  public BookingStatus findById(long id) throws DBException {
-    return BOOKING_STATUS_REPO.findStatusById(id);
+  public Status findById(long id) throws DBException {
+    String sql = Sql.FIND_BY_ID;
+    return STATUS_REPO.findById(sql, id);
   }
 }
