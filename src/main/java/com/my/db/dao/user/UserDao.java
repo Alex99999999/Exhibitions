@@ -3,6 +3,7 @@ package com.my.db.dao.user;
 import com.my.db.dao.Dao;
 import com.my.entity.User;
 import com.my.exception.DBException;
+import com.my.utils.DbUtils;
 import com.my.utils.Utils;
 import com.my.utils.constants.Logs;
 import com.my.utils.constants.Params;
@@ -56,9 +57,12 @@ public class UserDao implements Dao {
    * @param login value entered by admin to boost search of a user
    * @return User whose login contains value entered by admin
    */
-  public User findByLoginLike(String login) throws DBException {
-    String query = "%" + login + "%";
-    return repo.getUserByStringValue(Sql.GET_BY_LOGIN_LIKE, query);
+  public List <User> findByLoginLike(String login) throws DBException {
+    String query = "%" + DbUtils.escapeForPstmt(login) + "%";
+
+    LOG.debug("------> query " + query);
+
+    return repo.getUsersLike(Sql.GET_BY_LOGIN_LIKE, query);
   }
 
   @Override

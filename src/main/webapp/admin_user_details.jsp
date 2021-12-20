@@ -101,7 +101,9 @@ ${infoMessage}
    </tr>
 </thead>
 
+<c:forEach var="user" items="${user_list}">
 <tr>
+
     <td class="text-center">${user.login}</td>
     <td class="text-center"><fmt:message key="label.${user.role.role}"/></td>
     <td class="text-center">
@@ -121,6 +123,7 @@ ${infoMessage}
       </form>
      </td>
    </tr>
+</c:forEach>
 
 </table>
 

@@ -122,7 +122,7 @@ class UserRepo {
     ResultSet rs = null;
     try {
       stmt = con.prepareStatement(query);
-      stmt.setString(1, DbUtils.escapeForPstmt(val));
+      stmt.setString(1, val);
       rs = stmt.executeQuery();
       if (rs.next()) {
         user = factory.createUser(rs);
@@ -136,8 +136,31 @@ class UserRepo {
       DbUtils.close(stmt);
       DbUtils.close(con);
     }
-
     return user;
+  }
+
+  List<User> getUsersLike(String query, String val) throws DBException {
+    List<User> list = new ArrayList<>();
+    Connection con = DbUtils.getCon();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    try {
+      stmt = con.prepareStatement(query);
+      stmt.setString(1, val);
+      rs = stmt.executeQuery();
+      while (rs.next()) {
+        list.add(factory.createUser(rs));
+      }
+    } catch (SQLException e) {
+      errorMes = Logs.NOTHING_FOUND_PER_YOUR_REQUEST;
+      LOG.error(errorMes);
+      throw new DBException(errorMes, e);
+    } finally {
+      DbUtils.close(rs);
+      DbUtils.close(stmt);
+      DbUtils.close(con);
+    }
+    return list;
   }
 
   private User getUserByStringValue(Connection con, String query, long val) throws DBException {
@@ -361,5 +384,4 @@ class UserRepo {
     }
     return list;
   }
-
 }

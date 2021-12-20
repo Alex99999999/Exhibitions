@@ -46,11 +46,11 @@ public class GetAdminExhibitionsListCommand implements Command {
     try {
       pageSize = Utils.getInt(req.getParameter(Params.PAGE_SIZE));
       page = Utils.getInt(req.getParameter(Params.PAGE));
+      offset = Utils.getOffset(pageSize, page);
 
       statusList = ExhibitionStatusDao.getInstance().findAll();
       currency = CurrencyDao.getInstance().findAll();
       exhibitionCount = DAO.getAllExhibitionCount();
-      offset = Utils.getOffset(pageSize, page);
 
       list = DAO.findAllExhibitionsWithOffsetAndLimitNoFilter(offset, pageSize);
       Utils.getPagination(req, page, pageSize, exhibitionCount);

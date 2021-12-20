@@ -33,7 +33,7 @@ public class FindUserByLoginCommand implements Command {
 
   @Override
   public String execute(HttpServletRequest req, HttpServletResponse resp) {
-    User user;
+    List<User> user;
     List<UserRole> roleList;
     HttpSession session = req.getSession();
     String login = req.getParameter(Params.LOGIN);
@@ -42,7 +42,9 @@ public class FindUserByLoginCommand implements Command {
       Validator.validateNotNull(login);
       user = DAO.findByLoginLike(login);
 
-      if(user == null) {
+      LOG.debug("----> " + user.size());
+
+      if (user.size() == 0) {
         session.setAttribute(Params.INFO_MESSAGE, Logs.NOTHING_FOUND_PER_YOUR_REQUEST);
         return "admin?command=show_admin_users&page=1&pageSize=5";
       }
@@ -54,7 +56,7 @@ public class FindUserByLoginCommand implements Command {
       return ADDRESS;
     }
 
-    req.setAttribute(Params.USER, user);
+    req.setAttribute(Params.USER_LIST, user);
     req.setAttribute(Params.USER_ROLE_LIST, roleList);
     return ADDRESS;
   }

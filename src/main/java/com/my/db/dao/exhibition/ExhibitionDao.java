@@ -1,6 +1,7 @@
 package com.my.db.dao.exhibition;
 
 import com.my.db.dao.Dao;
+import com.my.utils.DbUtils;
 import com.my.utils.constants.SortingOptionsExhibition;
 import com.my.entity.Exhibition;
 import com.my.exception.DBException;
@@ -54,8 +55,9 @@ public class ExhibitionDao implements Dao {
     EXHIBITION_REPO.deleteById(id);
   }
 
-  public Exhibition findByTopic(String topic) throws DBException {
-    return EXHIBITION_REPO.getByTopic(topic);
+  public List <Exhibition> findByTopic(int offset, int limit, String topic) throws DBException {
+    topic = "%" + DbUtils.escapeForPstmt(topic) + "%";
+    return EXHIBITION_REPO.getByTopic(offset, limit, topic);
   }
 
   public void update(Exhibition ex) throws DBException {

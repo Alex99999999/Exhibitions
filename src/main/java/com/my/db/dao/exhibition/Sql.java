@@ -16,7 +16,7 @@ final class Sql {
   static final String CREATE_EXHIBITION = "INSERT into exhibition (id, topic, start_date, end_date, start_time, end_time, price, tickets_available, status_id, currency_id, description) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, (SELECT id from exhibition_status WHERE status = ?), (SELECT id from currency WHERE currency = ?), ?);";
   static final String FIND_ALL = "SELECT * FROM exhibition";
   static final String FIND_BY_ID = "SELECT * FROM exhibition WHERE id = ?";
-  static final String FIND_BY_TOPIC = "SELECT * FROM exhibition WHERE topic LIKE ?";
+  static final String FIND_BY_TOPIC_LIMIT_OFFSET = "SELECT * FROM exhibition WHERE topic LIKE ? LIMIT ? OFFSET ?;";
   static final String UPDATE_EXHIBITION =
       "UPDATE exhibition SET topic = ?, start_date = ?, end_date = ?, start_time = ?, end_time = ?, price = ?, tickets_available = ?,"
           + "status_id = (SELECT id FROM exhibition_status WHERE status = ?), currency_id = (SELECT id FROM currency WHERE currency = ?), description = ? WHERE id = ?;";

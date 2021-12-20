@@ -175,18 +175,20 @@ class ExhibitionRepo {
   }
 
 
-  Exhibition getByTopic(String topic) throws DBException {
-    topic = DbUtils.escapeForPstmt(topic);
-    Exhibition ex = null;
+  List <Exhibition> getByTopic(int offset, int limit, String topic) throws DBException {
+    List <Exhibition> ex = new ArrayList<>();
     Connection con = DbUtils.getCon();
     PreparedStatement stmt = null;
     ResultSet rs = null;
     try {
-      stmt = con.prepareStatement(Sql.FIND_BY_TOPIC);
-      stmt.setString(1, "%" + DbUtils.escapeForPstmt(topic) + "%");
+      stmt = con.prepareStatement(Sql.FIND_BY_TOPIC_LIMIT_OFFSET);
+      int k = 0;
+      stmt.setString(++k, topic);
+      stmt.setInt(++k, limit);
+      stmt.setInt(++k, offset);
       rs = stmt.executeQuery();
-      if (rs.next()) {
-        ex = factory.createExhibition(rs);
+      while (rs.next()) {
+        ex.add(factory.createExhibition(rs));
       }
     } catch (SQLException e) {
       errorMes = Logs.NOTHING_FOUND_PER_YOUR_REQUEST;
