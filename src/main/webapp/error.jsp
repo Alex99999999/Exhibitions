@@ -42,6 +42,14 @@
     </div>
 
 
+
+<div class="row center-block text-center">
+<h1>${requestScope['javax.servlet.error.status_code']}</h1>
+<p>${requestScope['javax.servlet.error.message']}</p>
+</div>
+
+
+
   <div class="row center-block text-center">
         <h3>${errorMessage}</h3>
     </div>
