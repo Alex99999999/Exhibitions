@@ -102,6 +102,8 @@
 
 <c:if test = "${role eq 'authorized_user'}">
 
+<hr>
+
   <div class="row justify-content-center">
     <div class="col-2">
       <tf:my_account/>

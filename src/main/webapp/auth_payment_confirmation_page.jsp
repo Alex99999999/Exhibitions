@@ -31,8 +31,8 @@
              <a>
                <form action="users" method="get">
                       <input type="hidden" name="command" value="show_booking_info">
-                      <input type="hidden" name="id" value=${exhibition.id}>
-                 <button class="btn btn-outline-secondary btn-md btn-block" type="button"><fmt:message key="label.back"/></button>
+                      <input type="hidden" name="exhibition_id" value=${exhibition.id}>
+                 <button class="btn btn-outline-secondary btn-md btn-block" type="submit"><fmt:message key="label.back"/></button>
                </form>
              </a>
 

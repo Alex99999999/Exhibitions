@@ -172,20 +172,20 @@ ${infoMessage}
    </tr>
 </thead>
 
-<c:forEach var="item" items="${exhibitions_list}">
+<c:forEach var="exhibition" items="${exhibitions_list}">
 <tr>
-    <td class="text-center">${item.topic}</td>
-    <td class="text-center">${item.startDate}</td>
-    <td class="text-center">${item.endDate}</td>
-    <td class="text-center">${item.startTime}</td>
-    <td class="text-center">${item.endTime}</td>
-    <td class="text-center">${item.price}</td>
-    <td class="text-center">${item.currency.currency}</td>
-    <td class="text-center">${item.ticketsAvailable}</td>
+    <td class="text-center">${exhibition.topic}</td>
+    <td class="text-center">${exhibition.startDate}</td>
+    <td class="text-center">${exhibition.endDate}</td>
+    <td class="text-center">${exhibition.startTime}</td>
+    <td class="text-center">${exhibition.endTime}</td>
+    <td class="text-center">${exhibition.price}</td>
+    <td class="text-center">${exhibition.currency.currency}</td>
+    <td class="text-center">${exhibition.ticketsAvailable}</td>
 
       <td><form action="users" method="get">
                     <input type="hidden" name="command" value="show_booking_info">
-                    <input type="hidden" name="id" value=${item.id}>
+                    <input type="hidden" name="exhibition_id" value=${exhibition.id}>
                     <button class="btn btn-outline-dark btn-sm btn-block" type="submit"><fmt:message key="label.go"/></button>
              </form>
       </td>
