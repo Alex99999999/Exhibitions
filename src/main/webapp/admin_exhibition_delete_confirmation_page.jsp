@@ -102,3 +102,4 @@
 </html>
 
 <c:remove var = "infoMessage" />
+<c:remove var = "exhibition" />

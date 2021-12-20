@@ -63,7 +63,7 @@ public class ExhibitionService {
     boolean isCurrent = status.equalsIgnoreCase(Params.CURRENT);
     boolean isPending = status.equalsIgnoreCase(Params.PENDING);
 
-    if (isCurrent && endDate.before(now) || startDate.after(now)) {
+    if (isCurrent && (endDate.before(now) || startDate.after(now))) {
       LOG.warn(INVALID_DATE_RANGE);
       throw new ValidationException(INVALID_DATE_RANGE);
     }

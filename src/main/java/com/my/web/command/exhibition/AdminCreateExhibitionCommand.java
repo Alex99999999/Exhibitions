@@ -16,13 +16,13 @@ import org.apache.log4j.Logger;
 public class AdminCreateExhibitionCommand implements Command {
 
   private static final Logger LOG = Logger.getLogger(AdminCreateExhibitionCommand.class);
+  private ExhibitionService service = ExhibitionService.getInstance();
 
   @Override
   public String execute(HttpServletRequest req, HttpServletResponse resp) {
     String topic = req.getParameter(Params.TOPIC);
     try {
-      Validator.validateNotNull(topic);
-      ExhibitionService.getInstance().verifyBeginningBeforeEnd(req);
+      service.validateInput(req);
       ExhibitionDao.getInstance().create(req);
       req.getSession().setAttribute(Params.INFO_MESSAGE,
           "Exhibition \"" + topic + "\" has been successfully created");
