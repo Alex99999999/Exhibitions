@@ -76,8 +76,8 @@ class UserRepo {
       String psw = req.getParameter(Params.PASSWORD);
       roleId = Integer.parseInt(req.getParameter(Params.USER_ROLES_ID));
       int k = 0;
-      stmt.setString(++k, login);
-      stmt.setString(++k, psw);
+      stmt.setString(++k, DbUtils.escapeForPstmt(login));
+      stmt.setString(++k, DbUtils.escapeForPstmt(psw));
       stmt.setLong(++k, roleId);
       stmt.executeUpdate();
     } catch (SQLException e) {
@@ -100,9 +100,9 @@ class UserRepo {
       psw = UserService.getInstance().hash(req.getParameter(Params.PASSWORD));
       stmt = con.prepareStatement(Sql.CREATE_USER);
       int k = 0;
-      stmt.setString(++k, login);
-      stmt.setString(++k, psw);
-      stmt.setString(++k, DEFAULT_ROLE);
+      stmt.setString(++k,DbUtils.escapeForPstmt(login));
+      stmt.setString(++k,DbUtils.escapeForPstmt(psw));
+      stmt.setString(++k,DbUtils.escapeForPstmt(DEFAULT_ROLE));
       stmt.executeUpdate();
     } catch (SQLException | ServiceException e) {
       errorMes = Logs.CREATE_USER_ERROR + "with login " + login;
@@ -122,7 +122,7 @@ class UserRepo {
     ResultSet rs = null;
     try {
       stmt = con.prepareStatement(query);
-      stmt.setString(1, val);
+      stmt.setString(1, DbUtils.escapeForPstmt(val));
       rs = stmt.executeQuery();
       if (rs.next()) {
         user = factory.createUser(rs);
@@ -247,8 +247,8 @@ class UserRepo {
       long userId = user.getId();
       stmt = con.prepareStatement(Sql.UPDATE_USER);
       int k = 0;
-      stmt.setString(++k, login);
-      stmt.setString(++k, psw);
+      stmt.setString(++k, DbUtils.escapeForPstmt(login));
+      stmt.setString(++k, DbUtils.escapeForPstmt(psw));
       stmt.setLong(++k, roleId);
       stmt.setLong(++k, userId);
       stmt.executeUpdate();
@@ -318,7 +318,7 @@ class UserRepo {
     int count = 0;
     try {
       stmt = con.prepareStatement(Sql.GET_COUNT_BY_ROLE);
-      stmt.setString(1, userRole);
+      stmt.setString(1, DbUtils.escapeForPstmt(userRole));
       rs = stmt.executeQuery();
       if (rs.next()) {
         count = rs.getInt(1);
@@ -343,7 +343,7 @@ class UserRepo {
     try {
       stmt = con.prepareStatement(Sql.FIND_USERS_BY_ROLE_LIMIT_OFFSET);
       int k = 0;
-      stmt.setString(++k, userRole);
+      stmt.setString(++k, DbUtils.escapeForPstmt(userRole));
       stmt.setInt(++k, limit);
       stmt.setInt(++k, offset);
       rs = stmt.executeQuery();

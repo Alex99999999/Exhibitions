@@ -38,7 +38,7 @@ public class DbUtils {
     }
   }
 
-  public static String escapeSymbolsForPstmt(String input) {
+  public static String escapeForPstmt(String input) {
     return input
         .replace("!", "!!")
         .replace("%", "!%")

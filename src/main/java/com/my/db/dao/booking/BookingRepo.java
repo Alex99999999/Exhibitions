@@ -111,7 +111,7 @@ class BookingRepo {
       stmt.setInt(++k, ticketsBooked);
       stmt.setInt(++k, exhibitionId);
       stmt.setInt(++k, userId);
-      stmt.setString(++k, status);
+      stmt.setString(++k, DbUtils.escapeForPstmt(status));
       stmt.executeUpdate();
       rs = stmt.getGeneratedKeys();
       if (rs.next()) {
@@ -219,7 +219,7 @@ class BookingRepo {
       pstmt = con.prepareStatement(Sql.UPDATE_BOOKING);
       int k = 0;
       pstmt.setInt(++k, booking.getTicketQty());
-      pstmt.setString(++k, booking.getStatus().getStatus());
+      pstmt.setString(++k, DbUtils.escapeForPstmt(booking.getStatus().getStatus()));
       pstmt.setLong(++k, booking.getId());
       pstmt.executeUpdate();
     } catch (SQLException e) {
@@ -241,8 +241,8 @@ class BookingRepo {
       ps = con.prepareStatement(Sql.FIND_BY_EXHIBITION_ID_AND_BOOKING_STATUS);
       int k = 0;
       ps.setLong(++k, id);
-      ps.setString(++k, booked);
-      ps.setString(++k, paid);
+      ps.setString(++k, DbUtils.escapeForPstmt(booked));
+      ps.setString(++k, DbUtils.escapeForPstmt(paid));
       rs = ps.executeQuery();
       if (rs.next()) {
         bookingCount = rs.getInt(1);
@@ -267,7 +267,7 @@ class BookingRepo {
     try {
       stmt = con.prepareStatement(sql);
       int k = 0;
-      stmt.setString(++k, filter);
+      stmt.setString(++k, DbUtils.escapeForPstmt(filter));
       stmt.setInt(++k, limit);
       stmt.setInt(++k, offset);
       bookingList = getList(con, stmt);
@@ -287,8 +287,8 @@ class BookingRepo {
     try {
       stmt = con.prepareStatement(sql);
       int k = 0;
-      stmt.setString(++k, status);
-      stmt.setString(++k, login);
+      stmt.setString(++k, DbUtils.escapeForPstmt(status));
+      stmt.setString(++k, DbUtils.escapeForPstmt(login));
       stmt.setInt(++k, limit);
       stmt.setInt(++k, offset);
       bookingList = getList(con, stmt);

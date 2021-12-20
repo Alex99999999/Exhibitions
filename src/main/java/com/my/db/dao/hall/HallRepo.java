@@ -76,7 +76,7 @@ public class HallRepo {
     PreparedStatement stmt;
     try {
       stmt = con.prepareStatement(Sql.FIND_BY_STATUS);
-      stmt.setString(1, status);
+      stmt.setString(1, DbUtils.escapeForPstmt(status));
       list = getList(con, stmt);
     } catch (SQLException e) {
       errorMes = Logs.NOTHING_FOUND_PER_YOUR_REQUEST;
@@ -95,7 +95,7 @@ public class HallRepo {
       stmt.setInt(++k, hall.getFloor());
       stmt.setDouble(++k, hall.getFloorSpace());
       stmt.setInt(++k, hall.getHallNo());
-      stmt.setString(++k, status);
+      stmt.setString(++k, DbUtils.escapeForPstmt(status));
       stmt.setLong(++k, hall.getId());
       stmt.executeUpdate();
     } catch (SQLException e) {
@@ -175,7 +175,7 @@ public class HallRepo {
     try {
       stmt = con.prepareStatement(sql);
       int k = 0;
-      stmt.setString(++k, status);
+      stmt.setString(++k, DbUtils.escapeForPstmt(status));
       stmt.setInt(++k, limit);
       stmt.setInt(++k, offset);
       hallList = getList(con, stmt);
@@ -196,7 +196,7 @@ public class HallRepo {
     try {
       stmt = con.prepareStatement(sql);
       int k = 0;
-      stmt.setString(++k, status);
+      stmt.setString(++k, DbUtils.escapeForPstmt(status));
       stmt.setInt(++k, space);
       stmt.setInt(++k, limit);
       stmt.setInt(++k, offset);
@@ -218,7 +218,7 @@ public class HallRepo {
       ps.setInt(++k, Integer.parseInt(req.getParameter(Params.HALL_FLOOR)));
       ps.setDouble(++k, Double.parseDouble(req.getParameter(Params.HALL_FLOOR_SPACE)));
       ps.setInt(++k, Integer.parseInt(req.getParameter(Params.HALL_NO)));
-      ps.setString(++k, DEFAULT_STATUS);
+      ps.setString(++k, DbUtils.escapeForPstmt(DEFAULT_STATUS));
       ps.executeUpdate();
     } catch (SQLException e) {
       errorMes = Logs.UNABLE_TO_CREATE;

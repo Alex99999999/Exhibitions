@@ -41,9 +41,6 @@ class ExhibitionHallsRepo {
       stmt = con.prepareStatement(Sql.GET_HALLS_BY_EXHIBITION_ID);
       stmt.setLong(1, id);
       rs = stmt.executeQuery();
-//      if(!rs.next()) {
-//        return list;
-//      }
       while (rs.next()) {
         list.add(hallDao.findById(rs.getLong(Params.HALL_ID)));
       }
@@ -60,7 +57,7 @@ class ExhibitionHallsRepo {
   }
 
   /**
-   * Method utilizes transaction. This method deletes the relation between exhition and hall and
+   * Transaction. This method deletes the relation between exhibition and hall and
    * sets hall status to "FREE"
    *
    * @param id object with the given id is handled and changed throughout the transaction

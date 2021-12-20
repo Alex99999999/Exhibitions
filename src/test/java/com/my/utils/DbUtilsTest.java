@@ -35,9 +35,9 @@ class DbUtilsTest {
   @ParameterizedTest
   @ValueSource(strings = {"!", "%", "_", "["})
   void escapeSymbolsForPstmtShouldReturnEscapedSymbol(String input) {
-    mockDbUtils.when(() -> DbUtils.escapeSymbolsForPstmt(input)).thenCallRealMethod();
+    mockDbUtils.when(() -> DbUtils.escapeForPstmt(input)).thenCallRealMethod();
 
-    Assertions.assertTrue(DbUtils.escapeSymbolsForPstmt(input).contains("!"));
+    Assertions.assertTrue(DbUtils.escapeForPstmt(input).contains("!"));
 
   }
 }

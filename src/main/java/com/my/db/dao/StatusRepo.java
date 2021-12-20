@@ -86,7 +86,7 @@ public class StatusRepo {
     ResultSet rs = null;
     try {
       stmt = con.prepareStatement(sql);
-      stmt.setString(1, status);
+      stmt.setString(1, DbUtils.escapeForPstmt(status));
       rs = stmt.executeQuery();
       if (rs.next()) {
         stat = factory.createStatus(rs);

@@ -97,16 +97,16 @@ class ExhibitionRepo {
     try {
       stmt = con.prepareStatement(sql);
       int k = 0;
-      stmt.setString(++k, topic);
-      stmt.setString(++k, startDate);
-      stmt.setString(++k, endDate);
-      stmt.setString(++k, startTime);
-      stmt.setString(++k, endTime);
+      stmt.setString(++k, DbUtils.escapeForPstmt(topic));
+      stmt.setString(++k, DbUtils.escapeForPstmt(startDate));
+      stmt.setString(++k, DbUtils.escapeForPstmt(endDate));
+      stmt.setString(++k, DbUtils.escapeForPstmt(startTime));
+      stmt.setString(++k, DbUtils.escapeForPstmt(endTime));
       stmt.setDouble(++k, price);
       stmt.setInt(++k, ticketsAvailable);
-      stmt.setString(++k, status);
-      stmt.setString(++k, currency);
-      stmt.setString(++k, description);
+      stmt.setString(++k, DbUtils.escapeForPstmt(status));
+      stmt.setString(++k, DbUtils.escapeForPstmt(currency));
+      stmt.setString(++k, DbUtils.escapeForPstmt(description));
       stmt.setLong(++k, id);
       stmt.executeUpdate();
     } catch (SQLException e) {
@@ -136,16 +136,16 @@ class ExhibitionRepo {
     try {
       stmt = con.prepareStatement(sql);
       int k = 0;
-      stmt.setString(++k, topic);
-      stmt.setString(++k, startDate);
-      stmt.setString(++k, endDate);
-      stmt.setString(++k, startTime);
-      stmt.setString(++k, endTime);
+      stmt.setString(++k, DbUtils.escapeForPstmt(topic));
+      stmt.setString(++k, DbUtils.escapeForPstmt(startDate));
+      stmt.setString(++k, DbUtils.escapeForPstmt(endDate));
+      stmt.setString(++k, DbUtils.escapeForPstmt(startTime));
+      stmt.setString(++k, DbUtils.escapeForPstmt(endTime));
       stmt.setDouble(++k, price);
       stmt.setInt(++k, ticketsAvailable);
-      stmt.setString(++k, status);
-      stmt.setString(++k, currency);
-      stmt.setString(++k, description);
+      stmt.setString(++k, DbUtils.escapeForPstmt(status));
+      stmt.setString(++k, DbUtils.escapeForPstmt(currency));
+      stmt.setString(++k, DbUtils.escapeForPstmt(description));
       stmt.executeUpdate();
     } catch (SQLException e) {
       errorMes = Logs.UNABLE_TO_UPDATE + topic;
@@ -176,14 +176,14 @@ class ExhibitionRepo {
 
 
   Exhibition getByTopic(String topic) throws DBException {
-    topic = DbUtils.escapeSymbolsForPstmt(topic);
+    topic = DbUtils.escapeForPstmt(topic);
     Exhibition ex = null;
     Connection con = DbUtils.getCon();
     PreparedStatement stmt = null;
     ResultSet rs = null;
     try {
       stmt = con.prepareStatement(Sql.FIND_BY_TOPIC);
-      stmt.setString(1, "%" + topic + "%");
+      stmt.setString(1, "%" + DbUtils.escapeForPstmt(topic) + "%");
       rs = stmt.executeQuery();
       if (rs.next()) {
         ex = factory.createExhibition(rs);
@@ -206,16 +206,18 @@ class ExhibitionRepo {
     try {
       stmt = con.prepareStatement(Sql.UPDATE_EXHIBITION);
       int k = 0;
-      stmt.setString(++k, ex.getTopic());
-      stmt.setString(++k, ExhibitionService.getInstance().toDbDateFormat(ex.getStartDate()));
-      stmt.setString(++k, ExhibitionService.getInstance().toDbDateFormat(ex.getEndDate()));
-      stmt.setString(++k, ex.getStartTime());
-      stmt.setString(++k, ex.getEndTime());
+      stmt.setString(++k, DbUtils.escapeForPstmt(ex.getTopic()));
+      stmt.setString(++k, DbUtils
+          .escapeForPstmt(ExhibitionService.getInstance().toDbDateFormat(ex.getStartDate())));
+      stmt.setString(++k,
+          DbUtils.escapeForPstmt(ExhibitionService.getInstance().toDbDateFormat(ex.getEndDate())));
+      stmt.setString(++k, DbUtils.escapeForPstmt(ex.getStartTime()));
+      stmt.setString(++k, DbUtils.escapeForPstmt(ex.getEndTime()));
       stmt.setDouble(++k, ex.getPrice());
       stmt.setInt(++k, ex.getTicketsAvailable());
-      stmt.setString(++k, ex.getStatus().getStatus());
-      stmt.setString(++k, ex.getCurrency().getCurrency());
-      stmt.setString(++k, ex.getDescription());
+      stmt.setString(++k, DbUtils.escapeForPstmt(ex.getStatus().getStatus()));
+      stmt.setString(++k, DbUtils.escapeForPstmt(ex.getCurrency().getCurrency()));
+      stmt.setString(++k, DbUtils.escapeForPstmt(ex.getDescription()));
       stmt.setLong(++k, ex.getId());
       stmt.executeUpdate();
     } catch (SQLException e) {
@@ -289,8 +291,8 @@ class ExhibitionRepo {
     try {
       stmt = con.prepareStatement(sql);
       int k = 0;
-      stmt.setString(++k, userDate);
-      stmt.setString(++k, userDate);
+      stmt.setString(++k, DbUtils.escapeForPstmt(userDate));
+      stmt.setString(++k, DbUtils.escapeForPstmt(userDate));
       stmt.setInt(++k, limit);
       stmt.setInt(++k, offset);
       rs = stmt.executeQuery();

@@ -71,7 +71,7 @@ public class RoleRepo {
     ResultSet rs;
     try {
       stmt = con.prepareStatement(Sql.FIND_BY_ROLE);
-      stmt.setString(1, role);
+      stmt.setString(1, DbUtils.escapeForPstmt(role));
       rs = stmt.executeQuery();
       if (rs.next()) {
         userRole = factory.createUserRole(rs);
@@ -96,7 +96,7 @@ public class RoleRepo {
     }
     try (Connection con = DbUtils.getCon();
         PreparedStatement stmt = con.prepareStatement(Sql.INSERT_ROLE)) {
-      stmt.setString(1, role);
+      stmt.setString(1, DbUtils.escapeForPstmt(role));
       stmt.executeUpdate();
     } catch (SQLException e) {
       errorMes = Logs.INSERTION_ERROR;
