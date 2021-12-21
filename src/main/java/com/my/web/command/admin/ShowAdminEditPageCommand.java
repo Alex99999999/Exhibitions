@@ -23,7 +23,6 @@ public class ShowAdminEditPageCommand implements Command {
 
   @Override
   public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
     Exhibition ex = (Exhibition) req.getSession().getAttribute(Params.EXHIBITION);
     try {
       Validator.validateNotNull(ex);

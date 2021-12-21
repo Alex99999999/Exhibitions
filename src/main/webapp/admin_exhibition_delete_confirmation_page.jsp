@@ -79,7 +79,7 @@
     <div class="col-6">
             <form action="admin" method="post">
                 <input type="hidden" name="command" value = "delete_exhibition">
-                <input type="hidden" name="exhibition" value = ${exhibition}>
+                <input type="hidden" name="exhibition_id" value=${exhibition.id}>
           	    <div class="d-grid gap-2 col-8 mx-auto">
                     <button type="submit" class="btn btn-secondary btn-lg btn-block"><fmt:message key="label.delete"/></button>
                 </div>
@@ -102,4 +102,3 @@
 </html>
 
 <c:remove var = "infoMessage" />
-<c:remove var = "exhibition" />

@@ -6,6 +6,7 @@ import com.my.entity.Booking;
 import com.my.entity.User;
 import com.my.exception.DBException;
 import com.my.utils.constants.Jsp;
+import com.my.utils.constants.Logs;
 import com.my.utils.constants.Params;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +29,7 @@ public class ShowUserBookingsCommand implements Command {
         return Jsp.SHOW_USER_BOOKINGS;
       }
     } catch (DBException e) {
-      String mes = "Unable to create user account!";
+      String mes = Logs.NOTHING_FOUND_PER_YOUR_REQUEST;
       LOG.warn(mes);
       req.setAttribute(Params.ERROR_MESSAGE, mes);
       return Jsp.ERROR_PAGE;
@@ -36,5 +37,4 @@ public class ShowUserBookingsCommand implements Command {
     req.setAttribute(Params.BOOKING_LIST, bookingList);
     return Jsp.SHOW_USER_BOOKINGS;
   }
-
 }

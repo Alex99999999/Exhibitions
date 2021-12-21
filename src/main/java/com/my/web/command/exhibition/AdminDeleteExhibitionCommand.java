@@ -8,6 +8,7 @@ import com.my.entity.Exhibition;
 import com.my.exception.CommandException;
 import com.my.exception.DBException;
 import com.my.exception.ValidationException;
+import com.my.utils.Utils;
 import com.my.utils.constants.Jsp;
 import com.my.validator.Validator;
 import com.my.utils.constants.Params;
@@ -18,6 +19,7 @@ import org.apache.log4j.Logger;
 public class AdminDeleteExhibitionCommand implements Command {
 
   private static final Logger LOG = Logger.getLogger(AdminDeleteExhibitionCommand.class);
+  private ExhibitionDao dao = ExhibitionDao.getInstance();
 
   /**
    * Method removes any info on selected exhibition Verifies availability of bookings and halls
@@ -30,19 +32,21 @@ public class AdminDeleteExhibitionCommand implements Command {
 
   @Override
   public String execute(HttpServletRequest req, HttpServletResponse resp) {
-    Exhibition ex = (Exhibition) req.getSession().getAttribute(Params.EXHIBITION);
+    long id;
+    Exhibition ex;
     try {
-      Validator.validateNotNull(ex);
-      verifyHalls(ex.getId());
-      verifyBookings(ex.getId());
-      ExhibitionDao.getInstance().delete(ex.getId());
+      id = Utils.retrieveId(req.getParameter(Params.EXHIBITION_ID));
+      ex = dao.findById(id);
+      verifyHalls(id);
+      verifyBookings(id);
+      dao.delete(id);
     } catch (DBException | ValidationException | CommandException e) {
       LOG.error(e.getMessage());
       req.getSession().setAttribute(Params.ERROR_MESSAGE, e.getMessage());
       return Jsp.ERROR_PAGE;
     }
     req.getSession().setAttribute(Params.INFO_MESSAGE,
-        "Exhibition" + ex.getTopic() + " has been successfully removed");
+        "Exhibition \"" + ex.getTopic() + "\" has been successfully removed");
     return "admin?command=get_exhibitions_list&page=1&pageSize=5";
   }
 
