@@ -39,10 +39,13 @@ public class DbUtils {
   }
 
   public static String escapeForPstmt(String input) {
-    return input
-        .replace("!", "!!")
-        .replace("%", "!%")
-        .replace("_", "!_")
-        .replace("[", "![");
+    if (input != null) {
+      return input
+          .replace("!", "!!")
+          .replace("%", "!%")
+          .replace("_", "!_")
+          .replace("[", "![");
+    }
+    return null;
   }
 }

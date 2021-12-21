@@ -59,9 +59,6 @@ public class UserDao implements Dao {
    */
   public List <User> findByLoginLike(String login) throws DBException {
     String query = "%" + DbUtils.escapeForPstmt(login) + "%";
-
-    LOG.debug("------> query " + query);
-
     return repo.getUsersLike(Sql.GET_BY_LOGIN_LIKE, query);
   }
 

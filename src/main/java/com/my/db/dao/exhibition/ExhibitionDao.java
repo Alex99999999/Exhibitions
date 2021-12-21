@@ -145,4 +145,11 @@ public class ExhibitionDao implements Dao {
     String sql = Sql.GET_ALL_EXHIBITION_COUNT;
     return EXHIBITION_REPO.getCount(sql);
   }
+
+  public List<Exhibition> findCurrentExhibitionsOffsetLimitByTopic(int offset, int pageSize, String topic)
+      throws DBException {
+    String query = Sql.FIND_CURRENT_OFFSET_LIMIT_BY_TOPIC;
+    topic = "%" + DbUtils.escapeForPstmt(topic) + "%";
+    return EXHIBITION_REPO.getCurrentExhibitionsByTopicLimitOffset(offset, pageSize, query, topic);
+  }
 }

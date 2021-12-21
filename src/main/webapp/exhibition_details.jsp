@@ -136,7 +136,7 @@ ${infoMessage}
 <thead class="table-light">
   <tr>
     <th class="text-center"><fmt:message key="label.topic"/></th>
-    <td class="text-center"><fmt:message key="label.description"/></td>
+    <th class="text-center"><fmt:message key="label.description"/></th>
     <th class="text-center"><fmt:message key="label.start.date"/></th>
     <th class="text-center"><fmt:message key="label.end.date"/></th>
     <th class="text-center"><fmt:message key="label.from"/></th>

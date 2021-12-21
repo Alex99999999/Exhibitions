@@ -115,7 +115,7 @@
            <select name="sorting_option">
 
                <option value="login" ${sorting_option eq "user_login" ? 'selected' : ''}><fmt:message key="label.login"/></option>
-               <option value="user_roles_id" ${sorting_option eq "user_role" ? 'selected' : ''}><fmt:message key="label.role"/></option>
+               <option value="user_roles_id" ${sorting_option eq "user_roles_id" ? 'selected' : ''}><fmt:message key="label.role"/></option>
            </select>
            <input type="hidden" name="command" value="sort_users">
            <input type="hidden" name="page" value=${page}>

@@ -100,9 +100,9 @@ class UserRepo {
       psw = UserService.getInstance().hash(req.getParameter(Params.PASSWORD));
       stmt = con.prepareStatement(Sql.CREATE_USER);
       int k = 0;
-      stmt.setString(++k,DbUtils.escapeForPstmt(login));
-      stmt.setString(++k,DbUtils.escapeForPstmt(psw));
-      stmt.setString(++k,DbUtils.escapeForPstmt(DEFAULT_ROLE));
+      stmt.setString(++k, DbUtils.escapeForPstmt(login));
+      stmt.setString(++k, DbUtils.escapeForPstmt(psw));
+      stmt.setString(++k, DEFAULT_ROLE);
       stmt.executeUpdate();
     } catch (SQLException | ServiceException e) {
       errorMes = Logs.CREATE_USER_ERROR + "with login " + login;
@@ -113,7 +113,6 @@ class UserRepo {
       DbUtils.close(con);
     }
   }
-
 
   User getUserByStringValue(String query, String val) throws DBException {
     User user = null;

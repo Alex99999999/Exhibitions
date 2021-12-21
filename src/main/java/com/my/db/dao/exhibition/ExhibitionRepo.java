@@ -175,8 +175,8 @@ class ExhibitionRepo {
   }
 
 
-  List <Exhibition> getByTopic(int offset, int limit, String topic) throws DBException {
-    List <Exhibition> ex = new ArrayList<>();
+  List<Exhibition> getByTopic(int offset, int limit, String topic) throws DBException {
+    List<Exhibition> ex = new ArrayList<>();
     Connection con = DbUtils.getCon();
     PreparedStatement stmt = null;
     ResultSet rs = null;
@@ -295,6 +295,34 @@ class ExhibitionRepo {
       int k = 0;
       stmt.setString(++k, DbUtils.escapeForPstmt(userDate));
       stmt.setString(++k, DbUtils.escapeForPstmt(userDate));
+      stmt.setInt(++k, limit);
+      stmt.setInt(++k, offset);
+      rs = stmt.executeQuery();
+      while (rs.next()) {
+        filtered.add(factory.createExhibition(rs));
+      }
+    } catch (SQLException e) {
+      String errorMes = Logs.SERVER_FILTER_ERROR;
+      LOG.error(errorMes);
+      throw new DBException(errorMes, e);
+    } finally {
+      DbUtils.close(rs);
+      DbUtils.close(stmt);
+      DbUtils.close(con);
+    }
+    return filtered;
+  }
+
+  List<Exhibition> getCurrentExhibitionsByTopicLimitOffset(int offset, int limit, String sql,
+      String topic) throws DBException {
+    List<Exhibition> filtered = new ArrayList<>();
+    Connection con = DbUtils.getCon();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    try {
+      stmt = con.prepareStatement(sql);
+      int k = 0;
+      stmt.setString(++k, topic);
       stmt.setInt(++k, limit);
       stmt.setInt(++k, offset);
       rs = stmt.executeQuery();

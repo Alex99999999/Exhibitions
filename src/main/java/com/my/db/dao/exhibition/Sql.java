@@ -2,6 +2,7 @@ package com.my.db.dao.exhibition;
 
 final class Sql {
 
+  static final String FIND_CURRENT_OFFSET_LIMIT_BY_TOPIC = "SELECT * FROM exhibition WHERE status_id=(SELECT id FROM exhibition_status WHERE status = 'current') and topic LIKE ? LIMIT ? OFFSET ?;";
   static final String FILTER_CURRENT_BY_DATE = "SELECT * FROM exhibition WHERE start_date < ? and end_date > ? and status_id=(SELECT id from exhibition_status WHERE status = 'current') LIMIT ? OFFSET ?";
   static final String FILTER_ALL_BY_DATE = "SELECT * FROM exhibition WHERE start_date < ? and end_date > ? LIMIT ? OFFSET ?;";
   static final String FIND_ALL_LIMIT_OFFSET_ORDER = "SELECT * FROM exhibition ORDER BY %s LIMIT ? OFFSET ?;";

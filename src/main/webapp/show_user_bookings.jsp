@@ -113,7 +113,7 @@ ${infoMessage}
     </td>
     <td><form action="users" method="get">
                      <input type="hidden" name="command" value="show_booking_info">
-                     <input type="hidden" name="id" value=${booking.exhibition.id}>
+                     <input type="hidden" name="exhibition_id" value=${booking.exhibition.id}>
                      <button class="btn btn-outline-dark btn-sm btn-block" type="submit"><fmt:message key="label.go"/></button>
               </form>
     </td>

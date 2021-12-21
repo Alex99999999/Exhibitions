@@ -10,6 +10,7 @@ import com.my.utils.constants.Jsp;
 import com.my.utils.constants.Logs;
 import com.my.validator.Validator;
 import com.my.utils.constants.Params;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,38 +23,31 @@ public class FilterUsersCommand implements Command {
 
   /**
    * Provides filtering of users by role.
+   *
    * @param req Must contain user_role param
-   * @return Address of page to display filtered list of users attached to the request
+   * @return Admin users page or error
    */
 
   @Override
   public String execute(HttpServletRequest req, HttpServletResponse resp) {
     List<User> list;
-    String userRole = req.getParameter(Params.USER_ROLE);
+    String filterOption = req.getParameter(Params.USER_ROLE);
     int pageSize;
-    int page ;
+    int page;
     int offset;
     int userCount = 0;
 
-    if (userRole == null) {
+    if (filterOption == null) {
       req.setAttribute(Params.INFO_MESSAGE, Logs.NOTHING_FOUND_PER_YOUR_REQUEST);
-      return "admin?command=show_admin_users";
+      return Jsp.ADMIN_USERS_PAGE;
     }
+
     try {
-      Validator.validateNotNull(userRole);
       pageSize = Utils.getInt(req.getParameter(Params.PAGE_SIZE));
       page = Utils.getInt(req.getParameter(Params.PAGE));
       offset = Utils.getOffset(pageSize, page);
-
-      if (userRole.equalsIgnoreCase(Params.ADMIN)) {
-        userCount = dao.getUserCountByRole(userRole);
-      } else if (userRole.equalsIgnoreCase(Params.AUTHORIZED_USER)) {
-        userCount = dao.getUserCountByRole(userRole);
-      }
-
-      Utils.getPagination(req, page,pageSize, userCount);
-      list = UserDao.getInstance().findByRoleLimitOffset(userRole, pageSize, offset);
-
+      Utils.getPagination(req, page, pageSize, userCount);
+      list = dao.findByRoleLimitOffset(filterOption, pageSize, offset);
     } catch (DBException | ValidationException e) {
       LOG.error(e.getMessage());
       req.setAttribute(Params.ERROR_MESSAGE, e.getMessage());
@@ -63,7 +57,6 @@ public class FilterUsersCommand implements Command {
       req.setAttribute(Params.INFO_MESSAGE, Logs.NOTHING_FOUND_PER_YOUR_REQUEST);
     }
     req.setAttribute(Params.USER_LIST, list);
-
     return Jsp.ADMIN_USERS_PAGE;
   }
 }
